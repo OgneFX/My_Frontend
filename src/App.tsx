@@ -7,6 +7,8 @@ export const App: React.FC = () => {
   useEffect(() => {
     const tg = window.Telegram.WebApp;
     tg.ready();
+    console.log(tg.initData);
+    console.log(tg.initDataUnsafe);
     if (tg.initDataUnsafe?.user) {
       setUser(tg.initDataUnsafe.user);
     }
