@@ -25,6 +25,7 @@ export const App: React.FC = () => {
   return (
     <>
       <button onClick={handlerButton}> ПРИВЕТ </button>
+      <span> {user?.id}</span>
     </>
   );
 };
