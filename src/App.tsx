@@ -7,6 +7,7 @@ const images = [
   { id: 2, image: "/img2.jpg", title: "Вторая" },
   { id: 3, image: "/img3.jpg", title: "Третья" },
   { id: 4, image: "/img4.jpg", title: "Четвёртая" },
+  { id: 5, image: "/img5.jpg", title: "Пять" },
 ];
 
 export const App: React.FC = () => {
