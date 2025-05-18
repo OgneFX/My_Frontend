@@ -1,13 +1,15 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { Slider } from "./Slider/Slider";
+import { Slider } from "./MobileSlider/MobileSlider";
+import { DesktopSlider } from "./DesktopSlider/DesktopSlider";
+import { isMobile, isDesktop } from "react-device-detect";
 
 const images = [
-  { id: 1, image: "/img1.jpg", title: "Первая" },
-  { id: 2, image: "/img2.jpg", title: "Вторая" },
-  { id: 3, image: "/img3.jpg", title: "Третья" },
-  { id: 4, image: "/img4.jpg", title: "Четвёртая" },
-  { id: 5, image: "/img5.jpg", title: "Пять" },
+  { id: 1, image: "/img1.jpeg", title: "Первая" },
+  { id: 2, image: "/img1.jpeg", title: "Вторая" },
+  { id: 3, image: "/img1.jpeg", title: "Третья" },
+  { id: 4, image: "/img1.jpeg", title: "Четвёртая" },
+  { id: 5, image: "/img1.jpeg", title: "Пять" },
 ];
 
 export const App: React.FC = () => {
@@ -30,12 +32,22 @@ export const App: React.FC = () => {
       console.log("Пользователь не найден");
     }
   };
+  console.log(isMobile);
+  console.log(isDesktop);
+
+  const checkDevice = (images: any) => {
+    if (isMobile) {
+      return <Slider slides={images} />;
+    } else if (isDesktop) {
+      return <DesktopSlider slides={images} />;
+    }
+  };
 
   return (
     <>
       <button onClick={handlerButton}> ПРИВЕТ </button>
       <span> {user?.last_name}</span>
-      <Slider slides={images} />
+      {checkDevice(images)}
     </>
   );
 };

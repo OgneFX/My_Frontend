@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import type { Slide } from "../interfaces/interfaces";
-import styles from "./slider.module.scss";
+import styles from "./moblieSlider.module.scss";
 
 interface SliderProps {
   slides: Slide[];
