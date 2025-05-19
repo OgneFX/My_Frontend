@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@telegram-apps/sdk": "^3.9.2",
     "react": "^19.1.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.1.0",
-    "sass": "^1.88.0"
+    "sass": "^1.88.0",
+    "telegram-web-app": "^0.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
