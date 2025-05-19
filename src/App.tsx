@@ -9,7 +9,7 @@ const images = [
   { id: 2, image: "/img2.jpg", title: "Вторая" },
   { id: 3, image: "/img1.jpeg", title: "Третья" },
   { id: 4, image: "/img2.jpg", title: "Четвёртая" },
-  { id: 5, image: "/img1.jpeg", title: "Пять" },
+  { id: 5, image: "/img1.jpeg", title: "Пятьd" },
 ];
 
 export const App: React.FC = () => {
