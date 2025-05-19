@@ -1,4 +1,3 @@
-import "./App.css";
 import { useEffect, useState } from "react";
 import { Slider } from "./MobileSlider/MobileSlider";
 import { DesktopSlider } from "./DesktopSlider/DesktopSlider";
