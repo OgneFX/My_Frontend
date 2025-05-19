@@ -18,10 +18,12 @@ export const App: React.FC = () => {
   useEffect(() => {
     const tg = window.Telegram.WebApp;
     tg.ready();
-    console.log(tg.initData);
-    console.log(tg.initDataUnsafe);
-    if (tg.initDataUnsafe?.user) {
-      setUser(tg.initDataUnsafe.user);
+    if (tg) {
+      tg.expand();
+      tg.requestFullscreen();
+      if (tg.initDataUnsafe?.user) {
+        setUser(tg.initDataUnsafe.user);
+      }
     }
   }, []);
 
@@ -32,10 +34,8 @@ export const App: React.FC = () => {
       console.log("Пользователь не найден");
     }
   };
-  console.log(isMobile);
-  console.log(isDesktop);
 
-  const checkDevice = (images: any) => {
+  const checkDevice = () => {
     if (isMobile) {
       return <Slider slides={images} />;
     } else if (isDesktop) {
@@ -47,7 +47,7 @@ export const App: React.FC = () => {
     <>
       <button onClick={handlerButton}> ПРИВЕТ </button>
       <span> {user?.last_name}</span>
-      {checkDevice(images)}
+      {checkDevice()}
     </>
   );
 };

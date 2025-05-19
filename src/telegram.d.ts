@@ -15,6 +15,9 @@ declare global {
       user?: Telegram.WebAppUser;
     };
     ready(): void;
+    expand(): void;
+    requestFullscreen(): void;
+    close(): void;
   }
 
   namespace Telegram {
