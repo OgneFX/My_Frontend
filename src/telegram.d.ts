@@ -11,6 +11,7 @@ declare global {
 
   interface TelegramWebApp {
     initData: string;
+    isClosingConfirmationEnabled: boolean;
     initDataUnsafe: {
       user?: Telegram.WebAppUser;
     };
