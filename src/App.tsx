@@ -19,8 +19,10 @@ export const App: React.FC = () => {
     tg.ready();
     if (tg) {
       tg.expand();
-      // tg.requestFullscreen();
-      tg.isClosingConfirmationEnabled = true;
+      tg.requestFullscreen();
+      tg.setSwipeBehavior?.({
+        allow_vertical_swipe: false,
+      });
       if (tg.initDataUnsafe?.user) {
         setUser(tg.initDataUnsafe.user);
       }

@@ -11,7 +11,7 @@ declare global {
 
   interface TelegramWebApp {
     initData: string;
-    isClosingConfirmationEnabled: boolean;
+    setSwipeBehavior?: (options: { allow_vertical_swipe: boolean }) => void;
     initDataUnsafe: {
       user?: Telegram.WebAppUser;
     };
