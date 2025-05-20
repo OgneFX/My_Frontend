@@ -3,26 +3,23 @@
   justify-content: center;
   align-items: center;
   touch-action: pan-y;
-
   width: 100%;
   padding: 1rem 0;
 }
 
 .slider {
   display: flex;
-  gap: 1rem;
   justify-content: center;
   align-items: center;
   width: 100%;
-  overflow: hidden;
 }
 
 .slide {
   transition: transform 0.4s ease, opacity 0.4s ease;
   opacity: 0;
   transform: scale(0.8);
-  width: 200px;
-  height: 300px;
+  width: 130px;
+  height: 200px;
   position: relative;
   flex-shrink: 0;
 
