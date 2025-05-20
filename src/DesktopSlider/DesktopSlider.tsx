@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import type { Slide } from "../interfaces/interfaces";
 import styles from "./desktopSlider.module.scss";
 
@@ -8,29 +8,36 @@ interface SliderProps {
 
 export const DesktopSlider: React.FC<SliderProps> = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollTimeout = useRef<number | null>(null);
 
-  const prevSlide = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+  const handleWheel = (e: WheelEvent) => {
+    if (scrollTimeout.current) return;
+
+    if (e.deltaY > 0 && currentIndex < slides.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+    } else if (e.deltaY < 0 && currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
     }
+
+    scrollTimeout.current = setTimeout(() => {
+      scrollTimeout.current = null;
+    }, 500);
   };
 
-  const nextSlide = () => {
-    if (currentIndex < slides.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    container.addEventListener("wheel", handleWheel);
+
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, [currentIndex]);
 
   return (
-    <div className={styles.sliderContainer}>
-      <button
-        className={styles.arrow}
-        onClick={prevSlide}
-        disabled={currentIndex === 0}
-      >
-        ‹
-      </button>
-
+    <div className={styles.sliderContainer} ref={containerRef}>
       <div className={styles.slider}>
         {slides.map((slide, index) => {
           const isActive = index === currentIndex;
@@ -54,14 +61,6 @@ export const DesktopSlider: React.FC<SliderProps> = ({ slides }) => {
           );
         })}
       </div>
-
-      <button
-        className={styles.arrow}
-        onClick={nextSlide}
-        disabled={currentIndex === slides.length - 1}
-      >
-        ›
-      </button>
     </div>
   );
 };

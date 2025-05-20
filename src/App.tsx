@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Slider } from "./MobileSlider/MobileSlider";
 import { DesktopSlider } from "./DesktopSlider/DesktopSlider";
 import { isMobile, isDesktop } from "react-device-detect";
 import { initDataUser } from "@telegram-apps/sdk";
-// import type { WebApp } from "telegram-web-app";
 
 const images = [
   { id: 1, image: "/img1.jpeg", title: "Первая" },
@@ -15,15 +14,6 @@ const images = [
 
 export const App: React.FC = () => {
   const [user, setUser] = useState<string | undefined>(undefined);
-
-  useEffect(() => {
-    // const tg = window.Telegram.WebApp;
-    // tg.ready();
-    // if (tg) {
-    //   tg.expand();
-    //   tg.requestFullscreen();
-    //   swipeBehavior.v
-  }, []);
 
   const handlerButton = () => {
     setUser(initDataUser()?.last_name);
