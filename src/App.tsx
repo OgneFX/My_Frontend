@@ -18,10 +18,9 @@ export const App: React.FC = () => {
   useEffect(() => {
     init();
   }, []);
-
+  console.log(useLaunchParams());
   const handlerButton = () => {
     console.log("ha");
-    console.log(useLaunchParams());
 
     console.log("ha");
     console.log(initData.user());
