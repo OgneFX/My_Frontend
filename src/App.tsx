@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Slider } from "./MobileSlider/MobileSlider";
 import { DesktopSlider } from "./DesktopSlider/DesktopSlider";
 import { isMobile, isDesktop } from "react-device-detect";
-import { initDataUser } from "@telegram-apps/sdk";
+import { initData } from "@telegram-apps/sdk";
 
 const images = [
   { id: 1, image: "/img1.jpeg", title: "Первая" },
@@ -17,8 +17,10 @@ export const App: React.FC = () => {
 
   const handlerButton = () => {
     console.log("hm");
-    console.log(initDataUser());
-    setUser(initDataUser()?.first_name);
+    console.log(initData.raw);
+    console.log("ha");
+    console.log(initData.user);
+    setUser(initData.user()?.first_name);
   };
 
   const checkDevice = () => {
