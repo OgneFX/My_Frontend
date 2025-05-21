@@ -17,7 +17,7 @@ export const App: React.FC = () => {
 
   const handlerButton = () => {
     console.log("hm");
-    console.log(initDataUser);
+    console.log(initDataUser());
     setUser(initDataUser()?.first_name);
   };
 
