@@ -17,7 +17,7 @@ export const App: React.FC = () => {
 
   const handlerButton = () => {
     console.log("hm");
-    setUser(initDataUser()?.last_name);
+    setUser(initDataUser()?.first_name);
   };
 
   const checkDevice = () => {
