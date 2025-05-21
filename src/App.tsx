@@ -21,7 +21,7 @@ export const App: React.FC = () => {
 
   const handlerButton = () => {
     console.log("ha");
-    console.log(useLaunchParams);
+    console.log(useLaunchParams());
 
     console.log("ha");
     console.log(initData.user());
