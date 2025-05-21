@@ -16,6 +16,7 @@ export const App: React.FC = () => {
   const [user, setUser] = useState<string | undefined>(undefined);
 
   const handlerButton = () => {
+    console.log("hm");
     setUser(initDataUser()?.last_name);
   };
 
@@ -30,7 +31,7 @@ export const App: React.FC = () => {
   return (
     <>
       <button onClick={handlerButton}> ПРИВЕТ </button>
-      <span> {user}</span>
+      <span> {`Привет ${user}`}</span>
       {checkDevice()}
     </>
   );
