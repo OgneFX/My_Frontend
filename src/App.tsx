@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Slider } from "./MobileSlider/MobileSlider";
 import { DesktopSlider } from "./DesktopSlider/DesktopSlider";
 import { isMobile, isDesktop } from "react-device-detect";
-import { init, initData, useLaunchParams } from "@telegram-apps/sdk-react";
+import { initData, useLaunchParams } from "@telegram-apps/sdk-react";
 
 const images = [
   { id: 1, image: "/img1.jpeg", title: "Первая" },
@@ -15,9 +15,7 @@ const images = [
 export const App: React.FC = () => {
   const [user, setUser] = useState<string | undefined>(undefined);
 
-  useEffect(() => {
-    init();
-  }, []);
+  useEffect(() => {}, []);
   console.log(useLaunchParams());
   const handlerButton = () => {
     console.log("ha");
