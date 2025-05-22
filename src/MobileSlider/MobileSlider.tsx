@@ -4,9 +4,10 @@ import styles from "./moblieSlider.module.scss";
 
 interface SliderProps {
   slides: Slide[];
+  setRegionIndex: (index: number) => void;
 }
 
-export const Slider: React.FC<SliderProps> = ({ slides }) => {
+export const Slider: React.FC<SliderProps> = ({ slides, setRegionIndex }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
@@ -31,6 +32,7 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
         setCurrentIndex((prev) => prev - 1);
       }
     }
+    setRegionIndex(currentIndex);
     touchStartX.current = null;
     touchEndX.current = null;
   };

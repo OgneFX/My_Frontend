@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Slider } from "./MobileSlider/MobileSlider";
 import { DesktopSlider } from "./DesktopSlider/DesktopSlider";
 import { isMobile, isDesktop } from "react-device-detect";
-import { initData, useLaunchParams } from "@telegram-apps/sdk-react";
+import { useLaunchParams } from "@telegram-apps/sdk-react";
+import { useTelegramAuth } from "./customHooks/useTelegramAuth";
 
 const images = [
   { id: 1, image: "/img1.jpeg", title: "Первая" },
@@ -10,34 +11,52 @@ const images = [
   { id: 3, image: "/img1.jpeg", title: "Третья" },
   { id: 4, image: "/img2.jpg", title: "Четвёртая" },
   { id: 5, image: "/img1.jpeg", title: "Пятьd" },
-];
+]; //временное решение
 
 export const App: React.FC = () => {
   const [user, setUser] = useState<string | undefined>(undefined);
+  const [regionIndex, setRegionIndex] = useState<number | undefined>(undefined);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const { registerUser } = useTelegramAuth();
 
-  useEffect(() => {}, []);
-  console.log(useLaunchParams());
-  const handlerButton = () => {
-    console.log("ha");
+  const userObj = useLaunchParams();
+  console.info(userObj);
 
-    console.log("ha");
-    console.log(initData.user());
-    setUser(initData.user()?.first_name);
+  useEffect(() => {
+    if (userObj?.tgWebAppData?.user?.first_name) {
+      setUser(userObj.tgWebAppData.user.first_name);
+    }
+  }, [userObj]);
+
+  const handleRegistrationClick = async () => {
+    const payload = {
+      ...userObj,
+      regionIndex: regionIndex,
+    };
+
+    const response = await registerUser(payload);
+    if (response.success) {
+      setIsRegistered(true);
+    }
   };
 
   const checkDevice = () => {
     if (isMobile) {
-      return <Slider slides={images} />;
+      return <Slider slides={images} setRegionIndex={setRegionIndex} />;
     } else if (isDesktop) {
-      return <DesktopSlider slides={images} />;
+      return <DesktopSlider slides={images} setRegionIndex={setRegionIndex} />;
     }
   };
 
+  if (isRegistered) {
+    return <div>Здесь вопросы</div>;
+  }
+
   return (
     <>
-      <button onClick={handlerButton}> ПРИВЕТ </button>
-      <span> {`Привет ${user}`}</span>
+      <span> {`Привет ${user} выбери регион`}</span>
       {checkDevice()}
+      <button onClick={handleRegistrationClick}> ВЫБРАТЬ </button>
     </>
   );
 };

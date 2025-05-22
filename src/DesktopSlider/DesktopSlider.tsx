@@ -4,9 +4,13 @@ import styles from "./desktopSlider.module.scss";
 
 interface SliderProps {
   slides: Slide[];
+  setRegionIndex: (index: number) => void;
 }
 
-export const DesktopSlider: React.FC<SliderProps> = ({ slides }) => {
+export const DesktopSlider: React.FC<SliderProps> = ({
+  slides,
+  setRegionIndex,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollTimeout = useRef<number | null>(null);
@@ -19,6 +23,7 @@ export const DesktopSlider: React.FC<SliderProps> = ({ slides }) => {
     } else if (e.deltaY < 0 && currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1);
     }
+    setRegionIndex(currentIndex);
 
     scrollTimeout.current = setTimeout(() => {
       scrollTimeout.current = null;
