@@ -59,7 +59,7 @@ export const App: React.FC = () => {
     <>
       <span> {`Привет ${user} выбери регион`}</span>
       {checkDevice()}
-      <span>{isRegistered}</span>
+      <span>{`${isRegistered}`}</span>
       <button onClick={handleRegistrationClick}> ВЫБРАТЬ </button>
     </>
   );
