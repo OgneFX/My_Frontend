@@ -20,7 +20,6 @@ export const App: React.FC = () => {
   const { registerUser } = useTelegramAuth();
 
   const userObj = useLaunchParams();
-  console.info(userObj);
 
   useEffect(() => {
     if (userObj?.tgWebAppData?.user?.first_name) {
@@ -38,6 +37,7 @@ export const App: React.FC = () => {
     };
 
     const response = await registerUser(payload);
+
     if (response.success) {
       setIsRegistered(true);
     }
