@@ -1,7 +1,7 @@
 import axios from "axios";
 
 interface ApiResponse {
-  message: string;
+  message?: string;
 }
 
 export const useTelegramAuth = () => {
@@ -12,7 +12,7 @@ export const useTelegramAuth = () => {
         userData
       );
       if (res.data) {
-        console.log("✅ Успешная регистрация:", res.data.message);
+        console.log("✅ Успешная регистрация:");
         return res.data;
       } else {
         throw new Error("Неожиданный формат ответа от сервера");
