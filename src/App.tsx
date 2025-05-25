@@ -29,6 +29,9 @@ export const App: React.FC = () => {
   }, [userObj]);
 
   const handleRegistrationClick = async () => {
+    if (userObj?.tgWebAppData?.user?.first_name) {
+      setUser(userObj.tgWebAppData.user.first_name);
+    }
     const payload = {
       ...userObj,
       regionIndex: regionIndex,
@@ -56,6 +59,7 @@ export const App: React.FC = () => {
     <>
       <span> {`Привет ${user} выбери регион`}</span>
       {checkDevice()}
+      <span>{isRegistered}</span>
       <button onClick={handleRegistrationClick}> ВЫБРАТЬ </button>
     </>
   );
