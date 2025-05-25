@@ -31,12 +31,12 @@ export const App: React.FC = () => {
     if (userObj?.tgWebAppData?.user?.first_name) {
       setUser(userObj.tgWebAppData.user.first_name);
     }
-    const payload = {
-      ...userObj,
-      regionIndex: regionIndex,
-    };
+    // const payload = {
+    //   ...userObj,
+    //   regionIndex: regionIndex,
+    // };
 
-    const response = await registerUser(payload);
+    const response = await registerUser(userObj);
 
     if (response.success) {
       setIsRegistered(true);
