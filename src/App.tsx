@@ -38,7 +38,7 @@ export const App: React.FC = () => {
 
     const response = await registerUser(userObj);
 
-    if (response.success) {
+    if (response.message) {
       setIsRegistered(true);
     }
   };

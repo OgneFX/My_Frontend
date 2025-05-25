@@ -1,9 +1,7 @@
 import axios from "axios";
 
 interface ApiResponse {
-  success: boolean;
   message: string;
-  data?: any;
 }
 
 export const useTelegramAuth = () => {
@@ -13,7 +11,7 @@ export const useTelegramAuth = () => {
         "https://my-backend-cwvb.onrender.com/api/user",
         userData
       );
-      if (res.data.success) {
+      if (res.data) {
         console.log("✅ Успешная регистрация:", res.data.message);
         return res.data;
       } else {
