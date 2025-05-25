@@ -11,8 +11,8 @@ export const useTelegramAuth = () => {
         "https://my-backend-cwvb.onrender.com/api/user",
         userData
       );
-      if (res.status === 200) {
-        console.log("✅ Успешная регистрация:");
+      if (res.data) {
+        console.log("✅ Успешная регистрация:", res.data.message);
         return res.data;
       } else {
         throw new Error("Неожиданный формат ответа от сервера");
