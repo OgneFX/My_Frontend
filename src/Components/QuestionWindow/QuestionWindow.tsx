@@ -8,7 +8,7 @@ interface QuestionWindowProps {
   userObj: LaunchParams;
 }
 
-//Исправить исчезновение карточки, проверять нажатие на сервере.
+//Исправить исчезновение карточки, проверять нажатие на сервере. d
 
 export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);

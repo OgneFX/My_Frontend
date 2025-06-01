@@ -4,6 +4,8 @@ import { useLaunchParams } from "@telegram-apps/sdk-react";
 import { Registration } from "./Components/Registration/Registration";
 import { QuestionWindow } from "./Components/QuestionWindow/QuestionWindow";
 
+//chacnge
+
 export const App: React.FC = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   const userObj = useLaunchParams();
