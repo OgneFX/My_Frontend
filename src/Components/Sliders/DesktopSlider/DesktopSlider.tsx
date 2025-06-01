@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import type { Slide } from "../interfaces/interfaces";
+import type { Slide } from "../../../interfaces/interfaces";
 import styles from "./desktopSlider.module.scss";
 
 interface SliderProps {

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import type { Slide } from "../interfaces/interfaces";
+import type { Slide } from "../../../interfaces/interfaces";
 import styles from "./moblieSlider.module.scss";
 
 interface SliderProps {
@@ -7,7 +7,10 @@ interface SliderProps {
   setRegionIndex: (index: number) => void;
 }
 
-export const Slider: React.FC<SliderProps> = ({ slides, setRegionIndex }) => {
+export const MoblieSlider: React.FC<SliderProps> = ({
+  slides,
+  setRegionIndex,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
