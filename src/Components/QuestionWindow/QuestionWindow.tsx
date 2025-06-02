@@ -13,12 +13,15 @@ interface QuestionWindowProps {
 export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const userId = userObj?.tgWebAppData?.user?.id;
+  console.log("Мы в QuestionWindow");
+  console.log(userId);
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get<IQuestion[]>(
           "https://my-backend-cwvb.onrender.com/api/questions"
         );
+        console.log("Мы в useEffect");
         console.log(response.data);
         setQuestions(response.data);
       } catch (error) {
