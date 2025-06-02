@@ -19,7 +19,7 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get<IQuestion[]>(
-          "https://my-backend-cwvb.onrender.com/api/questions"
+          "https://my-backend-cwvb.onrender.com/api/question"
         );
         console.log("Мы в useEffect");
         console.log(response.data);
