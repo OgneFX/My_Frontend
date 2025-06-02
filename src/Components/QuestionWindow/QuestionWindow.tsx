@@ -8,7 +8,7 @@ interface QuestionWindowProps {
   userObj: LaunchParams;
 }
 
-//Исправить исчезновение карточки, проверять нажатие на сервере. d
+//Исправить исчезновение карточки, проверять нажатие на сервере.
 
 export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
@@ -19,6 +19,7 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
         const response = await axios.get<IQuestion[]>(
           "https://my-backend-cwvb.onrender.com/api/questions"
         );
+        console.log(response.data);
         setQuestions(response.data);
       } catch (error) {
         console.error("Error fetching questions:", error);
