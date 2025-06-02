@@ -27,8 +27,8 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
-      fetchQuestions();
     };
+    fetchQuestions();
   }, []);
 
   const handleAnswer = async (questionId: number, optionId: number) => {

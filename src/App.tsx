@@ -7,7 +7,8 @@ import { QuestionWindow } from "./Components/QuestionWindow/QuestionWindow";
 //chacnge
 
 export const App: React.FC = () => {
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(true);
   const userObj = useLaunchParams();
   useEffect(() => {
     const checkRegistration = async () => {
@@ -27,11 +28,17 @@ export const App: React.FC = () => {
         }
       } catch (error) {
         console.error("Error checking registration:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     checkRegistration();
   }, [userObj]);
+
+  if (loading) {
+    return <div>Загрузка...</div>;
+  }
 
   return isRegistered ? (
     <QuestionWindow userObj={userObj} />
