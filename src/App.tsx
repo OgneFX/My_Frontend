@@ -12,6 +12,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     const checkRegistration = async () => {
       try {
+        console.log("Отправка на сервер для чека");
         const response = await axios.get(
           "https://my-backend-cwvb.onrender.com/api/user/check",
           {
@@ -21,8 +22,14 @@ export const App: React.FC = () => {
           }
         );
         if (response.data.isRegistered) {
+          console.log(
+            "Получил данные с сервера о том, что пользователь зареган"
+          );
           setIsRegistered(true);
         } else {
+          console.log(
+            "Получил данные с сервера о том, что пользователь НЕ зареган"
+          );
           setIsRegistered(false);
         }
       } catch (error) {
