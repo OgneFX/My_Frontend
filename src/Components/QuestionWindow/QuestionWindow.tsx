@@ -9,6 +9,7 @@ interface QuestionWindowProps {
 }
 
 //Исправить исчезновение карточки, проверять нажатие на сервере.
+//Интерфейс сделать новый - это базовый тест
 
 export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
