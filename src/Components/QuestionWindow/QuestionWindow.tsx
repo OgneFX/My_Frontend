@@ -19,9 +19,10 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        await axios.get<IQuestion[]>(
+        const response = await axios.get<IQuestion[]>(
           "https://my-backend-cwvb.onrender.com/api/question"
         );
+        setQuestions(response.data);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
