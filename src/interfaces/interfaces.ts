@@ -8,11 +8,13 @@ export interface IQuestion {
   id: number;
   title: string;
   question: string;
-  options: QuestionOptions[];
   multiSelect: boolean;
   category: string;
-  // createdAt: string;
   imageUrl?: string;
+  isRecurring: boolean;
+  createdAt: Date;
+
+  options: QuestionOptions[];
 }
 
 interface QuestionOptions {

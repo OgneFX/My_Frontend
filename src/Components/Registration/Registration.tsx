@@ -20,10 +20,6 @@ export const Registration: React.FC<RegistrationProps> = ({
 
   const { registerUser } = useTelegramAuth();
 
-  const testButton = () => {
-    setIsRegistered(true);
-  };
-
   const handleRegistrationClick = async () => {
     const payload = {
       ...userObj,
@@ -32,6 +28,7 @@ export const Registration: React.FC<RegistrationProps> = ({
 
     const response = await registerUser(payload);
     if (response.message) {
+      setIsRegistered(true);
     } else {
       console.error("Registration failed");
     }
@@ -63,7 +60,6 @@ export const Registration: React.FC<RegistrationProps> = ({
         {" "}
         ВЫБРАТЬ{" "}
       </button>
-      <button onClick={testButton}>TEST</button>
     </div>
   );
 };
