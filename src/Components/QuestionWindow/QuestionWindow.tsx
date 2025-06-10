@@ -33,7 +33,7 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
   const handleAnswer = async (questionId: number, optionId: number) => {
     try {
       await axios.post(
-        "https://my-backend-cwvb.onrender.com/api/questions/answer",
+        "https://my-backend-cwvb.onrender.com/api/question/answer",
         {
           questionId,
           optionId,
