@@ -12,7 +12,6 @@ export const useTelegramAuth = () => {
         userData
       );
       if (res.data) {
-        console.log("Успешная регистрация:", res.data.message);
         return res.data;
       } else {
         throw new Error("Неожиданный формат ответа от сервера");
