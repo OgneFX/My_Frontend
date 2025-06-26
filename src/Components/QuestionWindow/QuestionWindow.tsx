@@ -68,7 +68,7 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
       ))}
 
       {questions.length === 0 && (
-        <p className={styles.done}>Все вопросы на сегодня пройдены zz🎉</p>
+        <p className={styles.done}>Все вопросы на сегодня пройдены🎉</p>
       )}
     </div>
   );
