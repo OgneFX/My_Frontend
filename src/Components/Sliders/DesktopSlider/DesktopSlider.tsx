@@ -61,7 +61,7 @@ export const DesktopSlider: React.FC<SliderProps> = ({
               }`}
             >
               <img src={slide.image} alt={slide.title || ""} />
-              {slide.title && <p>{slide.title}</p>}
+              {slide.title && <span>{slide.title}</span>}
             </div>
           );
         })}

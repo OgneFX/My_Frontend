@@ -4,7 +4,8 @@
   align-items: center;
   touch-action: pan-y;
   width: 100%;
-  padding: 1rem 0;
+  padding: 1rem 0 3rem;
+  overflow: hidden;
 }
 
 .slider {
@@ -12,16 +13,18 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: relative;
 }
 
 .slide {
   transition: transform 0.4s ease, opacity 0.4s ease;
   opacity: 0;
   transform: scale(0.8);
-  width: 130px;
-  height: 200px;
+  width: 160px;
+  height: 230px;
   position: relative;
   flex-shrink: 0;
+  margin: 0 -50px;
 
   img {
     width: 100%;
@@ -30,16 +33,17 @@
     border-radius: 12px;
   }
 
-  p {
+  span {
     text-align: center;
     margin-top: 0.5rem;
   }
 }
 
 .active {
-  transform: scale(1);
+  transform: scale(1.1);
   opacity: 1;
   z-index: 2;
+  margin: 0 10px;
 }
 
 .side {
