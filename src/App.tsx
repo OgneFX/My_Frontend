@@ -10,6 +10,7 @@ export const App: React.FC = () => {
   const [isRegistered, setIsRegistered] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
   const userObj = useLaunchParams();
+
   useEffect(() => {
     const checkRegistration = async () => {
       try {

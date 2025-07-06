@@ -52,6 +52,7 @@ export const Registration: React.FC<RegistrationProps> = ({
         {" "}
         {`Добро пожаловать в Society Mind Research`}
       </h1>
+
       {checkDevice()}
       <button
         className={styles.registration__button}
