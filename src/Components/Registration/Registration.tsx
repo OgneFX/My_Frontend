@@ -5,7 +5,7 @@ import { mapImages } from "../../Data/SliderInRegistration";
 import { useTelegramAuth } from "../../customHooks/useTelegramAuth";
 import React, { useState } from "react";
 import type { LaunchParams } from "@telegram-apps/sdk-react";
-import "./registration.module.scss";
+import styles from "./registration.module.scss";
 
 interface RegistrationProps {
   userObj: LaunchParams;
@@ -47,14 +47,14 @@ export const Registration: React.FC<RegistrationProps> = ({
   };
 
   return (
-    <div className='registration'>
-      <h1 className='registration__text'>
+    <div className={styles.registration}>
+      <h1 className={styles.registration__text}>
         {" "}
         {`Добро пожаловать в Society Mind Research`}
       </h1>
       {checkDevice()}
       <button
-        className='registration__button'
+        className={styles.registration__button}
         onClick={handleRegistrationClick}
       >
         {" "}
