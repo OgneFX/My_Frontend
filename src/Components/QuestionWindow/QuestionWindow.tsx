@@ -42,7 +42,9 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
         }
       );
       setQuestions((prev) => prev.filter((q) => q.id !== questionId));
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
   };
 
   return (

@@ -41,8 +41,8 @@ export const App: React.FC = () => {
   }
 
   return isRegistered ? (
-    <QuestionWindow userObj={userObj} />
-  ) : (
     <Registration userObj={userObj} setIsRegistered={setIsRegistered} />
+  ) : (
+    <QuestionWindow userObj={userObj} />
   );
 };
