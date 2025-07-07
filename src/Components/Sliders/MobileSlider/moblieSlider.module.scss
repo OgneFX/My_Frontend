@@ -4,10 +4,9 @@
   align-items: center;
   touch-action: pan-y;
   width: 100%;
-  padding: 8rem 0 15rem;
+  padding: 3rem 0 6rem;
   overflow: hidden;
   margin-bottom: 6vh;
-  
 }
 
 .slider {
@@ -15,7 +14,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  overflow: hidden;
+  position: relative;
 }
 
 .slide {
@@ -39,7 +38,6 @@
   }
 
   span {
-    color: red;
     text-align: center;
     margin-top: 0.5rem;
   }
