@@ -4,7 +4,7 @@
   align-items: center;
   touch-action: pan-y;
   width: 100%;
-  padding: 4rem 0 8rem;
+  padding: 8rem 0 15rem;
   overflow: hidden;
   margin-bottom: 6vh;
   
@@ -38,7 +38,8 @@
     border-radius: 12px;
   }
 
-  p {
+  span {
+    color: red;
     text-align: center;
     margin-top: 0.5rem;
   }
