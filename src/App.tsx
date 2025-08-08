@@ -25,7 +25,7 @@ export const App: React.FC = () => {
         );
         console.log(response);
 
-        if (response.data.isRegistered) {
+        if (response.data.isRegistered === true) {
           setIsRegistered(true);
         } else {
           setIsRegistered(false);
