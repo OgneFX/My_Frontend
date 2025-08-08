@@ -24,8 +24,10 @@ export const App: React.FC = () => {
           }
         );
         console.log(response);
+        console.log(response.data.isRegistered.typeOf);
 
         if (response.data.isRegistered === true) {
+          console.log("переключил на тру");
           setIsRegistered(true);
         } else {
           setIsRegistered(false);
