@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { useLaunchParams } from "@telegram-apps/sdk-react";
 import { Registration } from "./Components/Registration/Registration";
 import { QuestionWindow } from "./Components/QuestionWindow/QuestionWindow";
+import { BottomNav } from "./Components/BottomNav/BottomNav";
 
 //chacnge
 
 export const App: React.FC = () => {
   const [isRegistered, setIsRegistered] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<"home" | "questions" | "settings">(
+    "home"
+  );
   const userObj = useLaunchParams();
 
   useEffect(() => {
@@ -42,9 +46,16 @@ export const App: React.FC = () => {
     return <div>Загрузка...</div>;
   }
 
-  return isRegistered ? (
-    <QuestionWindow userObj={userObj} />
-  ) : (
-    <Registration userObj={userObj} setIsRegistered={setIsRegistered} />
+  if (!isRegistered) {
+    return <Registration userObj={userObj} setIsRegistered={setIsRegistered} />;
+  }
+
+  return (
+    <div style={{ paddingBottom: "80px" }}>
+      {activeTab === "home"} {/*&& <Home />*/}
+      {activeTab === "questions" && <QuestionWindow userObj={userObj} />}
+      {activeTab === "settings"} {/*&& <Settings />*/}
+      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
+    </div>
   );
 };
