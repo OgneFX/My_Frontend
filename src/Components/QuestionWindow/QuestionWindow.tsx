@@ -49,17 +49,17 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
 
   return (
     <div className={styles.page}>
-      <h2>Ежедневные вопросы</h2>
+      <h2 className={styles.heading}>Ежедневные вопросы</h2>
 
       {questions.map((question) => (
         <div key={question.id} className={styles.card}>
-          <div className={styles.header}>
-            <span className={styles.category}>{question.category}</span>
+          <div className={styles.cardHeader}>
+            <span className={styles.category}>📂 {question.category}</span>
             <span className={styles.date}>
+              📅{" "}
               {new Date(question.createdAt).toLocaleDateString("ru-RU", {
                 day: "2-digit",
                 month: "short",
-                year: "numeric",
               })}
             </span>
           </div>
@@ -81,7 +81,7 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
       ))}
 
       {questions.length === 0 && (
-        <p className={styles.done}>Все вопросы на сегодня пройдены 🎉</p>
+        <p className={styles.done}>🎉 Все вопросы на сегодня пройдены</p>
       )}
     </div>
   );
