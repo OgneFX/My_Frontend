@@ -23,14 +23,9 @@ export const App: React.FC = () => {
             },
           }
         );
-        console.log(response);
-        console.log(typeof response.data.isRegistered);
-
         if (response.data.isRegistered === true) {
-          console.log("переключил на тру");
           setIsRegistered(true);
         } else {
-          console.log("переключил на фолс");
           setIsRegistered(false);
         }
       } catch (error) {
@@ -48,8 +43,8 @@ export const App: React.FC = () => {
   }
 
   return isRegistered ? (
-    <Registration userObj={userObj} setIsRegistered={setIsRegistered} />
-  ) : (
     <QuestionWindow userObj={userObj} />
+  ) : (
+    <Registration userObj={userObj} setIsRegistered={setIsRegistered} />
   );
 };
