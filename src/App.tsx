@@ -23,6 +23,8 @@ export const App: React.FC = () => {
             },
           }
         );
+        console.log(response);
+
         if (response.data.isRegistered) {
           setIsRegistered(true);
         } else {
