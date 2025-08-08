@@ -14,6 +14,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     const checkRegistration = async () => {
       try {
+        console.log(userObj?.tgWebAppData?.user?.id);
         const response = await axios.get(
           "https://my-backend-cwvb.onrender.com/api/user/check",
           {
