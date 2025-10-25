@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.profileCard {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profileItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eaeaea;
+  
+  &:last-of-type {
+    border-bottom: none;
+    margin-bottom: 10px;
+  }
+}
+
+.label {
+  font-weight: 600;
+  color: #333;
+  font-size: 16px;
+}
+
+.value {
+  color: #666;
+  font-size: 16px;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+  
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
