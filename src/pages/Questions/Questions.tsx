@@ -1,51 +1,109 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import type { IQuestion } from "../../interfaces/interfaces";
 import type { LaunchParams } from "@telegram-apps/sdk-react";
 import styles from "./Questions.module.scss";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface QuestionWindowProps {
   userObj: LaunchParams;
 }
 
+const fetchQuestions = async (userId?: number) => {
+  if (!userId) return [];
+  const res = await fetch(
+    `https://my-backend-cwvb.onrender.com/api/question?userId=${userId}`
+  );
+  if (!res.ok) throw new Error("Ошибка при получении вопросов");
+  return res.json();
+};
+
+const sendAnswer = async ({
+  questionId,
+  optionId,
+  userId,
+}: {
+  questionId: number;
+  optionId: number;
+  userId: number;
+}) => {
+  const res = await fetch(
+    "https://my-backend-cwvb.onrender.com/api/question/answer",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ questionId, optionId, userId }),
+    }
+  );
+  if (!res.ok) throw new Error("Ошибка при отправке ответа");
+  return res.json();
+};
+
+const formatRemaining = (until: string, now: number) => {
+  const diff = new Date(until).getTime() - now;
+  if (diff <= 0) return "⏰ Время вышло";
+
+  const minutes = Math.floor(diff / (1000 * 60));
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  const remHours = hours % 24;
+  const remMinutes = minutes % 60;
+
+  const parts: string[] = [];
+  if (days > 0) parts.push(`${days}д`);
+  if (remHours > 0) parts.push(`${remHours}ч`);
+  parts.push(`${remMinutes}м`);
+
+  return parts.join(" ");
+};
+
 //Исправить исчезновение карточки, проверять нажатие на сервере.
 //Интерфейс сделать новый - это базовый тест
 
 export const Questions: React.FC<QuestionWindowProps> = ({ userObj }) => {
-  const [questions, setQuestions] = useState<IQuestion[]>([]);
   const userId = userObj?.tgWebAppData?.user?.id;
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get<IQuestion[]>(
-          "https://my-backend-cwvb.onrender.com/api/question",
-          {
-            params: { userId },
-          }
-        );
-        setQuestions(response.data);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
-    fetchQuestions();
-  }, [userId]);
 
-  const handleAnswer = async (questionId: number, optionId: number) => {
-    try {
-      await axios.post(
-        "https://my-backend-cwvb.onrender.com/api/question/answer",
-        {
-          questionId,
-          optionId,
-          userId,
-        }
+  const queryClient = useQueryClient();
+
+  const {
+    data: questions = [],
+    isLoading,
+    isError,
+  } = useQuery<IQuestion[]>({
+    queryKey: ["questions", userId],
+    queryFn: () => fetchQuestions(userId),
+    enabled: !!userId,
+  });
+
+  const mutation = useMutation({
+    mutationFn: sendAnswer,
+    onSuccess: (_, variables) => {
+      // убираем карточку из списка после ответа
+      queryClient.setQueryData<IQuestion[]>(["questions", userId], (old) =>
+        old ? old.filter((q) => q.id !== variables.questionId) : []
       );
-      setQuestions((prev) => prev.filter((q) => q.id !== questionId));
-    } catch (error) {
-      console.error("Error fetching questions:", error);
-    }
-  };
+    },
+  });
+
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => {
+    const interval = setInterval(() => setNow(Date.now()), 60_000); // раз в минуту
+    return () => clearInterval(interval);
+  }, []);
+
+  if (isLoading) return <p className={styles.done}>Загрузка вопросов...</p>;
+  if (isError) return <p className={styles.done}>Ошибка загрузки вопросов</p>;
+
+  if (!userId) {
+    return (
+      <div className={styles.page}>
+        <h2 className={styles.heading}>Ежедневные вопросы</h2>
+        <p className={styles.done}>
+          Для просмотра вопросов требуется авторизация Telegram.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.page}>
@@ -56,22 +114,28 @@ export const Questions: React.FC<QuestionWindowProps> = ({ userObj }) => {
           <div className={styles.cardHeader}>
             <span className={styles.category}>📂 {question.category}</span>
             <span className={styles.date}>
-              📅{" "}
-              {new Date(question.createdAt).toLocaleDateString("ru-RU", {
-                day: "2-digit",
-                month: "short",
-              })}
+              ⏳ {formatRemaining(question.activeUntil.toString(), now)}
             </span>
           </div>
 
           <p className={styles.title}>{question.title}</p>
+          <p className={styles.date}>
+            👤 Автор: {question.author || "неизвестен"}
+          </p>
 
           <div className={styles.options}>
             {question.options.map((opt) => (
               <button
                 key={opt.id}
-                onClick={() => handleAnswer(question.id, opt.id)}
+                onClick={() =>
+                  mutation.mutate({
+                    questionId: question.id,
+                    optionId: opt.id,
+                    userId,
+                  })
+                }
                 className={styles.optionButton}
+                disabled={mutation.isPending}
               >
                 {opt.text}
               </button>
