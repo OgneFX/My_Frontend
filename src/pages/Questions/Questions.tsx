@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import type { IQuestion } from "../../interfaces/interfaces";
 import type { LaunchParams } from "@telegram-apps/sdk-react";
-import styles from "./questionWindows.module.scss";
+import styles from "./Questions.module.scss";
 
 interface QuestionWindowProps {
   userObj: LaunchParams;
@@ -11,7 +11,7 @@ interface QuestionWindowProps {
 //Исправить исчезновение карточки, проверять нажатие на сервере.
 //Интерфейс сделать новый - это базовый тест
 
-export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
+export const Questions: React.FC<QuestionWindowProps> = ({ userObj }) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const userId = userObj?.tgWebAppData?.user?.id;
   useEffect(() => {
@@ -29,7 +29,7 @@ export const QuestionWindow: React.FC<QuestionWindowProps> = ({ userObj }) => {
       }
     };
     fetchQuestions();
-  }, []);
+  }, [userId]);
 
   const handleAnswer = async (questionId: number, optionId: number) => {
     try {

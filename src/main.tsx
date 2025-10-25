@@ -4,6 +4,16 @@ import { postEvent } from "@telegram-apps/sdk";
 import { isMobile } from "react-device-detect";
 import "./slyles/global.scss";
 import { App } from "./App";
+import { BrowserRouter } from "react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  },
+});
 
 postEvent("web_app_expand");
 if (isMobile) {
@@ -16,6 +26,10 @@ postEvent("web_app_ready");
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>
 );

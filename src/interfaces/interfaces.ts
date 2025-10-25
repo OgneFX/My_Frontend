@@ -12,6 +12,7 @@ export interface IQuestion {
   category: string;
   imageUrl?: string;
   isRecurring: boolean;
+  activeUntil: Date;
   createdAt: Date;
 
   options: QuestionOptions[];

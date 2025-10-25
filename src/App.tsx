@@ -1,61 +1,51 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useLaunchParams } from "@telegram-apps/sdk-react";
-import { Registration } from "./Components/Registration/Registration";
-import { QuestionWindow } from "./Components/QuestionWindow/QuestionWindow";
-import { BottomNav } from "./Components/BottomNav/BottomNav";
+import { Registration } from "./pages/Registration/Registration";
+import { Questions } from "./pages/Questions/Questions";
+import { Settings } from "./pages/Settings/Settings";
+import { Home } from "./pages/Home/Home";
+import { Navigate, Route, Routes } from "react-router";
+import { useCheckRegistration } from "./customHooks/useCheckRegistration";
+import { PrivateRoute } from "./routers/PrivateRoute";
 
 //chacnge
 
 export const App: React.FC = () => {
-  const [isRegistered, setIsRegistered] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"home" | "questions" | "settings">(
-    "home"
-  );
-  const userObj = useLaunchParams();
-
-  useEffect(() => {
-    const checkRegistration = async () => {
-      try {
-        console.log(userObj?.tgWebAppData?.user?.id);
-        const response = await axios.get(
-          "https://my-backend-cwvb.onrender.com/api/user/check",
-          {
-            params: {
-              userId: userObj?.tgWebAppData?.user?.id,
-            },
-          }
-        );
-        if (response.data.isRegistered === true) {
-          setIsRegistered(true);
-        } else {
-          setIsRegistered(false);
-        }
-      } catch (error) {
-        console.error("Error checking registration:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkRegistration();
-  }, [userObj]);
-
-  if (loading) {
+  const { isRegistered, isLoading, isError, refetch, userObj } =
+    useCheckRegistration();
+  if (isLoading) {
     return <div>Загрузка...</div>;
   }
 
-  if (!isRegistered) {
-    return <Registration userObj={userObj} setIsRegistered={setIsRegistered} />;
+  if (isError) {
+    return <div>Ошибка...</div>;
   }
 
   return (
-    <div style={{ paddingBottom: "80px" }}>
-      {activeTab === "home"} {/*&& <Home />*/}
-      {activeTab === "questions" && <QuestionWindow userObj={userObj} />}
-      {activeTab === "settings"} {/*&& <Settings />*/}
-      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
-    </div>
+    <Routes>
+      {/* Public route: страница регистрации.
+            Если пользователь уже зарегистрирован — редиректим его на "/" (или на /questions) */}
+      <Route
+        path='/registration'
+        element={
+          isRegistered ? (
+            <Navigate to='/' replace />
+          ) : (
+            <Registration userObj={userObj} onSuccess={refetch} />
+          )
+        }
+      />
+
+      {/* Private routes: все вложенные маршруты будут доступны только если PrivateRoute разрешит */}
+      <Route element={<PrivateRoute isRegistered={isRegistered} />}>
+        <Route path='/' element={<Home />} />
+        <Route path='/questions' element={<Questions userObj={userObj} />} />
+        <Route path='/settings' element={<Settings />} />
+      </Route>
+
+      {/* Fallback: на любой неизвестный путь — отправляем в зависимости от статуса */}
+      <Route
+        path='*'
+        element={<Navigate to={isRegistered ? "/" : "/registration"} replace />}
+      />
+    </Routes>
   );
 };

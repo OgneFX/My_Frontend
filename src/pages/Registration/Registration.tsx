@@ -1,5 +1,5 @@
-import { MoblieSlider } from "../Sliders/MobileSlider/MobileSlider";
-import { DesktopSlider } from "../Sliders/DesktopSlider/DesktopSlider";
+import { MoblieSlider } from "../../Components/Sliders/MobileSlider/MobileSlider";
+import { DesktopSlider } from "../../Components/Sliders/DesktopSlider/DesktopSlider";
 import { isMobile, isDesktop } from "react-device-detect";
 import { mapImages } from "../../Data/SliderInRegistration";
 import { useTelegramAuth } from "../../customHooks/useTelegramAuth";
@@ -9,16 +9,16 @@ import styles from "./registration.module.scss";
 
 interface RegistrationProps {
   userObj: LaunchParams;
-  setIsRegistered: (i: boolean) => void;
+  onSuccess: () => void;
 }
 
 export const Registration: React.FC<RegistrationProps> = ({
   userObj,
-  setIsRegistered,
+  onSuccess,
 }) => {
-  const [regionIndex, setRegionIndex] = useState<number | undefined>(undefined);
+  const [regionIndex, setRegionIndex] = useState(0);
 
-  const { registerUser } = useTelegramAuth();
+  const { mutate, isPending } = useTelegramAuth();
 
   const handleRegistrationClick = async () => {
     const payload = {
@@ -26,12 +26,19 @@ export const Registration: React.FC<RegistrationProps> = ({
       regionIndex: regionIndex,
     };
 
-    const response = await registerUser(payload);
-    if (response.message) {
-      setIsRegistered(true);
-    } else {
-      console.error("Registration failed");
-    }
+    mutate(payload, {
+      onSuccess: (response) => {
+        if (response.success) {
+          console.log("Регистрация успешна:");
+          onSuccess();
+        } else {
+          console.log("Ошибка регистрации");
+        }
+      },
+      onError: (err) => {
+        console.error("Ошибка", err);
+      },
+    });
   };
 
   const checkDevice = () => {
@@ -57,9 +64,10 @@ export const Registration: React.FC<RegistrationProps> = ({
       <button
         className={styles.registration__button}
         onClick={handleRegistrationClick}
+        disabled={isPending}
       >
         {" "}
-        ВЫБРАТЬ{" "}
+        {isPending ? "Отправка..." : "Выбрать"}{" "}
       </button>
     </div>
   );

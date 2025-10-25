@@ -1,26 +1,30 @@
-import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import type { LaunchParams } from "@telegram-apps/sdk-react";
 
 interface ApiResponse {
-  message?: string;
+  message: string;
+  success: boolean;
 }
 
-export const useTelegramAuth = () => {
-  const registerUser = async (userData: any): Promise<ApiResponse> => {
-    try {
-      const res = await axios.post<ApiResponse>(
-        "https://my-backend-cwvb.onrender.com/api/user",
-        userData
-      );
-      if (res.data) {
-        return res.data;
-      } else {
-        throw new Error("Неожиданный формат ответа от сервера");
-      }
-    } catch (e) {
-      console.error("Registration failed:", e);
-      throw e;
-    }
-  };
+type userDataPayload = {
+  regionIndex: number;
+} & LaunchParams;
 
-  return { registerUser };
+const registerUserRequest = async (
+  userData: userDataPayload
+): Promise<ApiResponse> => {
+  const res = await fetch("https://my-backend-cwvb.onrender.com/api/user", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userData),
+  });
+
+  const data = res.json();
+  return data;
+};
+
+export const useTelegramAuth = () => {
+  return useMutation<ApiResponse, Error, userDataPayload>({
+    mutationFn: registerUserRequest,
+  });
 };
