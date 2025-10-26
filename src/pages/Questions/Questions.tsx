@@ -119,7 +119,7 @@ export const Questions: React.FC<QuestionWindowProps> = ({ userObj }) => {
 
           <p className={styles.title}>{question.title}</p>
           <p className={styles.date}>
-            👤 Автор: {question.author || "неизвестен"}
+            👤 Автор: {question.author?.username ?? "неизвестен"}
           </p>
 
           <div className={styles.options}>

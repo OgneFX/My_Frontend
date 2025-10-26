@@ -14,7 +14,7 @@ export interface IQuestion {
   isRecurring: boolean;
   activeUntil: Date;
   createdAt: Date;
-  author: string;
+  author: { username: string };
 
   options: QuestionOptions[];
 }
