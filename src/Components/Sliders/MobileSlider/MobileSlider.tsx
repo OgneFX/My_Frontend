@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import type { Slide } from "../../../interfaces/interfaces";
 import styles from "./moblieSlider.module.scss";
 
@@ -35,10 +35,14 @@ export const MoblieSlider: React.FC<SliderProps> = ({
         setCurrentIndex((prev) => prev - 1);
       }
     }
-    setRegionIndex(currentIndex);
+
     touchStartX.current = null;
     touchEndX.current = null;
   };
+
+  useEffect(() => {
+    setRegionIndex(currentIndex);
+  }, [currentIndex, setRegionIndex]);
 
   return (
     <div
