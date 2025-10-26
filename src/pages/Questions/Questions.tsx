@@ -9,7 +9,6 @@ interface QuestionWindowProps {
 }
 
 const fetchQuestions = async (userId?: number) => {
-  if (!userId) return [];
   const res = await fetch(
     `https://my-backend-cwvb.onrender.com/api/question?userId=${userId}`
   );
@@ -74,11 +73,11 @@ export const Questions: React.FC<QuestionWindowProps> = ({ userObj }) => {
     queryFn: () => fetchQuestions(userId),
     enabled: !!userId,
   });
+  console.log("ВОПРОСЫ", questions);
 
   const mutation = useMutation({
     mutationFn: sendAnswer,
     onSuccess: (_, variables) => {
-      // убираем карточку из списка после ответа
       queryClient.setQueryData<IQuestion[]>(["questions", userId], (old) =>
         old ? old.filter((q) => q.id !== variables.questionId) : []
       );
