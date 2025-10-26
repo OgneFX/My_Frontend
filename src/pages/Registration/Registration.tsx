@@ -23,7 +23,7 @@ export const Registration: React.FC<RegistrationProps> = ({
   const handleRegistrationClick = async () => {
     const payload = {
       ...userObj,
-      regionIndex: regionIndex,
+      regionIndex: mapImages[regionIndex].id,
     };
 
     mutate(payload, {
