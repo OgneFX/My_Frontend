@@ -31,6 +31,10 @@ export const DesktopSlider: React.FC<SliderProps> = ({
   };
 
   useEffect(() => {
+    setRegionIndex(currentIndex);
+  }, [currentIndex, setRegionIndex]);
+
+  useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
@@ -39,7 +43,7 @@ export const DesktopSlider: React.FC<SliderProps> = ({
     return () => {
       container.removeEventListener("wheel", handleWheel);
     };
-  }, [currentIndex]);
+  }, []);
 
   return (
     <div className={styles.sliderContainer} ref={containerRef}>
